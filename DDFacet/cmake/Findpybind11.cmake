@@ -5,12 +5,11 @@
 # User may force an include path by specifying PYBIND11_INCLUDE_PATH_HINT in commandline options
 # (C) Benjamin Hugo
 
-cmake_minimum_required(VERSION 2.6)
 if(NOT PYTHON_EXECUTABLE)
   if(NumPy_FIND_QUIETLY)
-    find_package(PythonInterp QUIET)
+    find_package(Python REQUIRED Interpreter QUIET)
   else()
-    find_package(PythonInterp)
+    find_package(Python REQUIRED Interpreter)
     set(_interp_notfound 1)
   endif()
 endif()
@@ -25,17 +24,17 @@ if (PYTHON_EXECUTABLE)
   file(WRITE ${PROJECT_BINARY_DIR}/FindPyBind11Path.py
   "try: import pybind11; print(pybind11.get_include())\nexcept: pass\n")
   # execute the find script
-  exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
-  ARGS "FindPyBind11Path.py"
-  OUTPUT_VARIABLE PYBIND11_PATH)
+  #exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
+  execute_process(COMMAND "${PYTHONENV}" ${PROJECT_BINARY_DIR}/FindPyBind11Path.py
+      OUTPUT_VARIABLE PYBIND11_PATH)
   
   # write a python script that finds the pybind path
   file(WRITE ${PROJECT_BINARY_DIR}/FindPyBind11PathUser.py
   "try: import pybind11; print(pybind11.get_include(user=True))\nexcept: pass\n")
   # execute the find script
-  exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
-  ARGS "FindPyBind11PathUser.py"
-  OUTPUT_VARIABLE PYBIND11_PATH_USER)
+  #exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
+  execute_process(COMMAND "${PYTHONENV}" ${PROJECT_BINARY_DIR}/FindPyBind11PathUser.py
+      OUTPUT_VARIABLE PYBIND11_PATH_USER)
 elseif(_interp_notfound)
   message(STATUS "Python executable not found.")
 endif(PYTHON_EXECUTABLE)
@@ -64,4 +63,4 @@ if(PYTHON_PYBIND11_INCLUDE_DIR)
 endif()
   
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Pybind11 DEFAULT_MSG PYTHON_PYBIND11_INCLUDE_DIR)
+find_package_handle_standard_args(pybind11 DEFAULT_MSG PYTHON_PYBIND11_INCLUDE_DIR)

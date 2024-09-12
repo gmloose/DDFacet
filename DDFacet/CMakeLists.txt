@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
+project(DDFacet)
 
 #As per http://permalink.gmane.org/gmane.comp.programming.tools.cmake.user/15952
 IF(DEFINED CMAKE_BUILD_TYPE)
