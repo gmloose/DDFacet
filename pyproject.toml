@@ -30,6 +30,7 @@ dependencies = [
     "psutil",
     "ptyprocess",
     "py-cpuinfo",
+    "pybind11",
     "pyephem",
     "pyFFTW",
     "pylru",
