@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18)
 set(BUILD_SHARED_LIBS ON) #we always want shared libs out of this for python extensions
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 

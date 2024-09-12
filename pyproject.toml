@@ -89,7 +89,7 @@ testing-requirements = ["nose >= 1.3.7; python_version >= '3' and python_version
 # The versions of CMake to allow. If CMake is not present on the system or does
 # not pass this specifier, it will be downloaded via PyPI if possible. An empty
 # string will disable this check.
-cmake.version = ">=2.8"
+cmake.version = ">=3.18"
 
 # A list of args to pass to CMake when configuring the project. Setting this in
 # config or envvar will override toml. See also ``cmake.define``.
