@@ -5,12 +5,15 @@
 # User may force an include path by specifying PYBIND11_INCLUDE_PATH_HINT in commandline options
 # (C) Benjamin Hugo
 
+if (Python_EXECUTABLE AND NOT PYTHON_EXECUTABLE)
+  set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
+endif()
+
 if(NOT PYTHON_EXECUTABLE)
   if(NumPy_FIND_QUIETLY)
     find_package(Python REQUIRED Interpreter QUIET)
   else()
     find_package(Python REQUIRED Interpreter)
-    set(_interp_notfound 1)
   endif()
 endif()
 
@@ -35,9 +38,9 @@ if (PYTHON_EXECUTABLE)
   #exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
   execute_process(COMMAND "${PYTHONENV}" ${PROJECT_BINARY_DIR}/FindPyBind11PathUser.py
       OUTPUT_VARIABLE PYBIND11_PATH_USER)
-elseif(_interp_notfound)
+elseif()
   message(STATUS "Python executable not found.")
-endif(PYTHON_EXECUTABLE)
+endif()
 
 # accept user hint
 if(PYBIND11_INCLUDE_PATH_HINT)

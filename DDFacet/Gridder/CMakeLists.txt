@@ -46,13 +46,11 @@ function(build_be PYVER)
     set(PYREQ_VER 3.0)
     set(PYABI .cpython-30)
     find_package(Python REQUIRED Interpreter Development.Module NumPy)
-    #find_package(PythonInterp ${PYREQ_VER} REQUIRED)    
-    #find_package(PythonLibs ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} REQUIRED) #must match
   else ("${PYVER}" EQUAL "27")
     message(FATAL_ERROR "Version switch ${PYVER} not understood")
   endif("${PYVER}" EQUAL "27")
   
-  #find_package(NumPy REQUIRED)
+  find_package(NumPy REQUIRED)
   find_package(OpenMP REQUIRED)
   find_package(RT REQUIRED)
   find_package(pybind11 REQUIRED)
@@ -74,14 +72,7 @@ function(build_be PYVER)
   endif (NOT ${PYTHON_PYBIND11_FOUND})
 
   #Update include paths with found includes above
-  #include_directories(${PYTHON_INCLUDE_DIR} ${PYTHON_NUMPY_INCLUDE_DIR} ${PYTHON_NUMPY_INCLUDE_DIR}/numpy ${RT_INCLUDES} ${CASACORE_INCLUDE_DIR} ${PYTHON_PYBIND11_INCLUDE_DIR})
-  message(STATUS "Python_INCLUDE_DIRS = ${Python_INCLUDE_DIRS}")
-  message(STATUS "Python_NumPy_INCLUDE_DIRS = ${Python_NumPy_INCLUDE_DIRS}")
-  message(STATUS "RT_INCLUDES = ${RT_INCLUDES}")
-  message(STATUS "CASACORE_INCLUDE_DIR = ${CASACORE_INCLUDE_DIR}")
-  message(STATUS "PYTHON_PYBIND11_INCLUDE_DIR = ${PYTHON_PYBIND11_INCLUDE_DIR}")
   include_directories(${Python_INCLUDE_DIRS} ${Python_NumPy_INCLUDE_DIRS} ${Python_NumPy_INCLUDE_DIRS}/numpy ${RT_INCLUDES} ${CASACORE_INCLUDE_DIR} ${PYTHON_PYBIND11_INCLUDE_DIR})
-
 
   set(PYBIND11_CPP_STANDARD -std=c++14)
 
