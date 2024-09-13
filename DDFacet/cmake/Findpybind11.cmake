@@ -27,17 +27,17 @@ if (PYTHON_EXECUTABLE)
   file(WRITE ${PROJECT_BINARY_DIR}/FindPyBind11Path.py
   "try: import pybind11; print(pybind11.get_include())\nexcept: pass\n")
   # execute the find script
-  #exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
   execute_process(COMMAND "${PYTHONENV}" ${PROJECT_BINARY_DIR}/FindPyBind11Path.py
-      OUTPUT_VARIABLE PYBIND11_PATH)
+    OUTPUT_VARIABLE PYBIND11_PATH
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
   
   # write a python script that finds the pybind path
   file(WRITE ${PROJECT_BINARY_DIR}/FindPyBind11PathUser.py
   "try: import pybind11; print(pybind11.get_include(user=True))\nexcept: pass\n")
   # execute the find script
-  #exec_program("${PYTHONENV}" ${PROJECT_BINARY_DIR}
   execute_process(COMMAND "${PYTHONENV}" ${PROJECT_BINARY_DIR}/FindPyBind11PathUser.py
-      OUTPUT_VARIABLE PYBIND11_PATH_USER)
+    OUTPUT_VARIABLE PYBIND11_PATH_USER
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
 elseif()
   message(STATUS "Python executable not found.")
 endif()
